@@ -5,9 +5,36 @@ const modelTickets = require("../models/tickets");
 //It INSERT a NEW user into the colection
 const usersSave = async (req, res) =>  {
     try {
-        const user = new modelTickets(req.body); 
-        await user.save(); 
-        res.send("Usuario guardado correctamente"); 
+        const {email} = req.body;
+        const modeluser = await modelTickets.findOne({email: email});
+        if (modeluser){
+            return res.status(400).json({msg:"disable"});
+        }else{
+            const user = new modelTickets(req.body); 
+            await user.save(); 
+            return res.status(200).json({
+                msg: "unable",
+            });
+        }
+        const payload = {
+            user: { id: user.id },
+        };
+            
+        jwt.sign(
+            payload,
+            process.env.SECRETA,
+            {
+            expiresIn: 3600, //1 hora
+            },
+            (error, token) => {
+            if (error) throw error;
+            
+            //Mensaje de confirmación
+            res.json({ token });
+            }
+        );
+     return res.status(200).json({msg: "User's been save"});     
+
     } catch (error) {
         console.error(error); 
     }
