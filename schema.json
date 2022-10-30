@@ -1,0 +1,41 @@
+{
+	"tickets": {
+		"_id": {
+			"primaryKey": true,
+			"type": "Object",
+			"required": true
+		},
+		"name": {
+			"type": "string",
+			"required": true
+		},
+		"id_user": {
+			"type": "string",
+			"required": true
+		},
+		"email": {
+			"type": "string",
+			"required": true
+		},
+		"passwd": {
+			"type": "string",
+			"required": true
+		},
+		"typeroll": {
+			"type": "string",
+			"required": true
+		},
+		"ticketsset": {
+			"type": "Array",
+			"required": true
+		},
+		"createdAt": {
+			"type": "Date",
+			"required": true
+		},
+		"updatedAt": {
+			"type": "Date",
+			"required": true
+		}
+	}
+}
