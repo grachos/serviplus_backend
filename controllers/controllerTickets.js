@@ -7,9 +7,50 @@ const modelTickets = require("../models/tickets");
 const insertTicket = async(req, res)=>{
     try {
         const id = req.params.id;
-        const user = req.body;
-        await modelTickets.findByIdAndUpdate(id, user);
-        res.send("Se creo el ticket correctamente");
+        const {
+            idticket, 
+            ticketdescript, 
+            typerequest, 
+            startdate, 
+            finishdate, 
+            ticketstatus
+        } = req.body;
+        await modelTickets.updateOne({
+            _id : id
+        }, {
+            "$push": {
+                "ticketsset": [
+                    {
+                      "idticket": idticket,
+                      "ticketdescript": ticketdescript,
+                      "typerequest": typerequest,
+                      "startdate": startdate,
+                      "finishdate": finishdate,
+                      "ticketstatus": ticketstatus
+                    }
+                  ]
+            }
+        })
+        return res.status(200).json({msg: "unable"});
+
+        const payload = {
+            user: { id: user.id },
+        };
+            
+        jwt.sign(
+            payload,
+            process.env.SECRETA,
+            {
+            expiresIn: 3600, //1 hora
+            },
+            (error, token) => {
+            if (error) throw error;
+            
+            //Mensaje de confirmación
+            res.json({ token });
+            }
+        );
+     return res.status(200).json({msg: "User's been save"});     
     } catch (error) {
         console.log(error);
     }
@@ -27,7 +68,8 @@ const ticketDel = async(req, res) =>{
                 } 
             }
         );
-        res.send("Se eliminó ticket correctamente " + ticketID);
+        return res.status(200).json({msg: "unable"});
+        //res.send("Se eliminó ticket correctamente " + ticketID);
     } catch (error) {
         console.log(error);
     }
