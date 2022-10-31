@@ -55,8 +55,9 @@ const userUpdate = async(req, res)=>{
 const userDelete = async(req, res)=>{
     try {
         const id = req.params.id;
-        await modelTickets.findByIdAndDelete(id);
-        res.send("Usuario eliminado correctamente");
+        await modelTickets.findByIdAndDelete({_id: id});
+        //res.send("Usuario eliminado correctamente");
+        return res.status(200).json({msg: "deleted"});
     } catch (error) {
         console.log(error);
     }
