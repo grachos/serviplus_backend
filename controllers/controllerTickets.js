@@ -55,6 +55,26 @@ const insertTicket = async (req, res) => {
         console.log(error);
     }
 }
+// Deleting just a one register by Users, using method updateOne and endpoint put
+const delOneTicket = async (req, res) => {
+    try {
+        const ticketID = req.params.idticket;
+        const {id} = req.body;
+
+        await modelTickets.updateOne({_id: id},
+            {
+                $pull:
+                {
+                    ticketsset:
+                        { idticket: ticketID }
+                }
+            }
+        );
+        return res.status(200).json({ msg: "unable" });
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 //It finds a ticket by id and DELETE all the documents with that id into the collection
 const ticketDel = async (req, res) => {
@@ -111,24 +131,7 @@ const ticketUpdate = async (req, res) => {
                     "ticketsset.$.ticketstatus" : ticketstatus
                 }
             });
-        /*await modelTickets.updateMany(
-            { "ticketsset.idticket": ticketID },
-            {
-                $set:
-                {
-                    "ticketsset": [
-                        {
-                            "idticket": idticket,
-                            "ticketdescript": ticketdescript,
-                            "typerequest": typerequest,
-                            "startdate": startdate,
-                            "finishdate": finishdate,
-                            "ticketstatus": ticketstatus
-                        }
-                    ]
-                }
-            }
-        );*/
+      
         return res.status(200).json({ msg: "unable" });
     } catch (error) {
         console.log(error);
@@ -136,9 +139,12 @@ const ticketUpdate = async (req, res) => {
 }
 
 
+
+
 module.exports = {
     insertTicket,
     ticketDel,
     ticketsList,
-    ticketUpdate
+    ticketUpdate,
+    delOneTicket
 }

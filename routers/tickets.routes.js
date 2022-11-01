@@ -10,10 +10,11 @@ routerTickets.get("/", (req, res) => {
 
 //Routes
 routerTickets.put("/newticket/:id", controlTicket.insertTicket);
-routerTickets.post("/newuser", controlUser.usersSave);
 routerTickets.delete("/delticket/:idticket", controlTicket.ticketDel);
+routerTickets.put("/deloneticket/:idticket", controlTicket.delOneTicket);
 routerTickets.get("/ticketlist",controlTicket.ticketsList);
 routerTickets.put("/updateticket/:idticket", controlTicket.ticketUpdate);
+routerTickets.post("/newuser", controlUser.usersSave);
 routerTickets.put("/updateuser/:id", controlUser.userUpdate);
 routerTickets.delete("/deluser/:id", controlUser.userDelete);
 routerTickets.get("/userlist", controlUser.usersList);
