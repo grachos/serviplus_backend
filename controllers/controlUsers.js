@@ -40,7 +40,7 @@ const usersSave = async (req, res) =>  {
     }
 }
 
-//It look the user for if and update the colection
+//It update a user  by user id
 const userUpdate = async(req, res)=>{
     try {
         const id = req.params.id;
@@ -77,12 +77,14 @@ const usersList = async (req, res) => {
 const findUser = async (req, res) => {
     try {
         const id = req.params.id;
-        const ticketJsList= await modelTickets.find({_id: id});
-        res.status(200).send(ticketJsList); 
+        const user = await modelTickets.find({_id: id},{ticketsset: 0});
+        res.status(200).send(user); 
+
     } catch (error) {
         console.error(error); 
     }
 }
+
 const Login = async (req, res)=>{
     try {
         const {email, password} = req.body;
