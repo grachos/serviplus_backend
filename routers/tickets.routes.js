@@ -18,6 +18,7 @@ routerTickets.post("/newuser", controlUser.usersSave);
 routerTickets.put("/updateuser/:id", controlUser.userUpdate);
 routerTickets.delete("/deluser/:id", controlUser.userDelete);
 routerTickets.get("/userlist", controlUser.usersList);
+routerTickets.get("/finduser/:id", controlUser.findUser);
 routerTickets.post("/login", controlUser.Login);
 
 

@@ -46,7 +46,7 @@ const userUpdate = async(req, res)=>{
         const id = req.params.id;
         const user = req.body;
         await modelTickets.findByIdAndUpdate(id, user);
-        res.send("Se creo el ticket correctamente");
+        return res.status(200).json({msg: "update"})
     } catch (error) {
         console.log(error);
     }
@@ -73,6 +73,16 @@ const usersList = async (req, res) => {
     }
 }
 
+//It lists all of the users their ticket
+const findUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const ticketJsList= await modelTickets.find({_id: id});
+        res.status(200).send(ticketJsList); 
+    } catch (error) {
+        console.error(error); 
+    }
+}
 const Login = async (req, res)=>{
     try {
         const {email, password} = req.body;
@@ -120,5 +130,6 @@ module.exports = {
     userUpdate, 
     userDelete,
     usersList,
-    Login
+    Login,
+    findUser
 }
