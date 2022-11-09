@@ -1,7 +1,7 @@
 //Archivo para inicializar el proyecto de tickets.
 const app = require("./app");
 const cors = require("cors");
-var port = process.env.$PORT || 4000;
+var port = process.env.PORT || 5000;
 
 
 const mongo = require("./database");
