@@ -8,6 +8,9 @@
   },
   "name": "u36_serviplus_04",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.18.0"
+  },
   "description": "Servicios de tickets",
   "main": "index.js",
   "scripts": {
