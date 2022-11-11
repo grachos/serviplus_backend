@@ -98,9 +98,37 @@ const ticketDel = async (req, res) => {
 
 //It lists all of the tickets
 const ticketsList = async (req, res) => {
-    let query = 1;
     try {
         const ticketJsList = await modelTickets.find(({ ticketsset: { $elemMatch: {} } }));
+        res.status(200).send(ticketJsList);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+//It lists one ticket by idTicket
+const findTicket = async (req, res) => {
+     const id = req.params.idticket;
+
+    try {
+    
+        const ticketJsList = 
+        await modelTickets.aggregate(
+            [
+                {$unwind: "$ticketsset"}, 
+                {"$match": {"ticketsset.idticket": id}}, 
+                {"$project": 
+                    {
+                        "idticket": "$ticketsset.idticket", 
+                        "ticketdescript": "$ticketsset.ticketdescript", 
+                        "typerequest": "$ticketsset.typerequest",
+                        "ticketstatus": "$ticketsset.ticketstatus",
+                        "startdate": "$ticketsset.startdate",
+                        "finishdate": "$ticketsset.finishdate"
+                    }
+                }
+            ]
+        )
         res.status(200).send(ticketJsList);
     } catch (error) {
         console.error(error);
@@ -146,5 +174,6 @@ module.exports = {
     ticketDel,
     ticketsList,
     ticketUpdate,
-    delOneTicket
+    delOneTicket,
+    findTicket
 }

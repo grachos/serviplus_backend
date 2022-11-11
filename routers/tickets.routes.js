@@ -13,6 +13,7 @@ routerTickets.put("/newticket/:id", controlTicket.insertTicket);
 routerTickets.delete("/delticket/:idticket", controlTicket.ticketDel);
 routerTickets.put("/deloneticket/:idticket", controlTicket.delOneTicket);
 routerTickets.get("/ticketlist",controlTicket.ticketsList);
+routerTickets.get("/findticket/:idticket", controlTicket.findTicket);
 routerTickets.put("/updateticket/:idticket", controlTicket.ticketUpdate);
 routerTickets.post("/newuser", controlUser.usersSave);
 routerTickets.put("/updateuser/:id", controlUser.userUpdate);
